@@ -51,7 +51,7 @@
 
 | Column                              | Type       | Options                        |
 |-|-|-|
-| post_cord                           | string     | null: false                    |
+| postcord                            | string     | null: false                    |
 | prefecture_id                       | integer    | null: false                    |
 | municipalities                      | string     | null: false                    |
 | street                              | string     | null: false                    |
