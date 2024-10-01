@@ -5,20 +5,25 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
 
+  def new
+    @order_shipping = OrderShipping.new
+  end
+
   def create
-    @order = Order.create(order_params)
-    Shipping.create(shipping_params)
-    redirect_to root_path
+    @order_shipping = OrderShipping.new(order_params)
+    if @order_shipping.valid?
+      @order_shipping.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
 
   def order_params
-    params.merge(user_id: current_user.id)
+    params.require(:order_shipping).permit(:postcord, :prefecture_id, :municipalities, :street, :building, :telephone_number).merge(order_id: @order.id)
   end
 
-  def shipping_params
-    params.permit(:postcord, :prefecture_id, :municipalities, :street, :building, :telephone_number).merge(order_id: @order.id)
-  end
-
+  
 end
