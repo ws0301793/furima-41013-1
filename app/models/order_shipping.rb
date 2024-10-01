@@ -12,4 +12,8 @@ class OrderShipping
   end
   validates :prefecture, numericality: {other_than: 0, message: "can't be blank"}
 
+  def save
+    order = Order.create(item_id: item_id, user_id: user_id)
+    shipping.create(postcord: postcord, prefecture_id: prefecture_id, municipalities: municipalities, street: street, building: building, telephone_number: telephone_number, order_id: order_id)
+  end
 end
