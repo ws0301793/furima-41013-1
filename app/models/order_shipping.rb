@@ -10,7 +10,7 @@ class OrderShipping
     validates :city
     validates :addresses
   end
-  validates :prefecture, numericality: {other_than: 0, message: "can't be blank"}
+  validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
 
   def save
     order = Order.create(item_id: item_id, user_id: user_id)
