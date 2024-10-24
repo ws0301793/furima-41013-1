@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_public_key, only: [:index, :create]
   before_action :authenticate_user!, except: :index
   before_action :set_item, only: [:index, :create]
+  
 
   
 
