@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_public_key, only: [:index, :create]
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-  before_action :redirect_if_not_authorized,[:index, :create]
+  before_action :redirect_if_not_authorized, only: [:index, :create]
   
 
   
