@@ -59,10 +59,21 @@ RSpec.describe OrderShipping, type: :model do
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid. Include hyphen(-)")
       end
+      it 'phone_numberが12桁以上だと保存できないこと' do
+        @order_shipping.phone_number = '123456789012'
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid. Include hyphen(-)")
+      end
       it 'userが紐付いていないと保存できないこと' do
         @order_shipping.user_id = nil
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'itemがないと保存できないこと' do
+        @order_shipping.item_id = nil
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Item can't be blank")
       end
 
       it "tokenが空では登録できないこと" do
