@@ -16,8 +16,6 @@ class OrdersController < ApplicationController
     @order_shipping = OrderShipping.new(order_params)
     if @order_shipping.valid?
       pay_item
-      @order = Order.create(item_id: params[:item_id], user_id: current_user.id)
-      @order_shipping.order_id = @order.id
       @order_shipping.save
       redirect_to root_path
     else
