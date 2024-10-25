@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_public_key, only: [:index, :create]
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :redirect_if_not_authorized,[:index, :create]
   
 
   
@@ -47,6 +48,19 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def redirect_if_not_authorized
+    # 自身が出品した商品の購入ページにアクセスしようとした場合、トップページにリダイレクト
+    if @item.user_id == current_user.id
+      redirect_to root_path
+    end
+
+    #売却済み商品の購入ページにアクセスしようとした場合、トップページにリダイレクト
+    if @item.order.present? && @item.user_id != current_user.id
+      redirect_to root_path
+    end
+
   end
   
 end
