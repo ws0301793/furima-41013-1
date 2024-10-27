@@ -66,6 +66,8 @@ class ItemsController < ApplicationController
     # 自身が出品した売却済み商品の商品情報編集ページに遷移しようとした場合
     if current_user.id == @item.user.id && @item.order.present?
       redirect_to root_path
+    else current_user.id != @item.user.id 
+      redirect_to root_path
     end
   end
 
